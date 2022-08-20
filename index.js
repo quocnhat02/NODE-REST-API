@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import userRoute from "./routes/users.js";
 import authRoute from "./routes/auth.js";
+import postRoute from "./routes/posts.js";
 
 const app = express();
 const PORT = process.env.PORT || 6969;
@@ -24,8 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
 
 app.listen(PORT, () => {
   console.log(`Backend server is running on port: ${PORT}`);
