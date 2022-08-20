@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import helmet from "helmet";
 import morgan from "morgan";
+import userRoute from "./routes/users.js";
+import authRoute from "./routes/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 6969;
@@ -19,9 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Homepage");
-});
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`Backend server is running on port: ${PORT}`);
