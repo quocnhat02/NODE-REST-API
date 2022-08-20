@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 6969;
 
 // connection MongoDB
 mongoose
-  .connect(process.env.MONGO_URL, { serverSelectionTimeoutMS: 5000 })
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log(`Connected to MONGODB`))
   .catch((error) => console.log(`Fail connect to MONGODB, ${error.message}`));
 
@@ -19,7 +22,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-// app.use(morgan("common"));
+app.use(morgan("common"));
 
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
